@@ -8,11 +8,7 @@ final _tabProvider = StateProvider((ref) => 0);
 class TopPage extends ConsumerWidget {
   TopPage({Key? key}) : super(key: key);
 
-  final _pages = [
-    ThisMonthPage(),
-    ThisMonthPage(),
-    const SettingPage('Settings')
-  ];
+  final _pages = [ThisMonthPage(), ThisMonthPage(), SettingPage()];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -18,7 +18,6 @@ class Content extends StatelessWidget {
     return Container(
       width: 200,
       decoration: BoxDecoration(
-        // color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -39,16 +38,18 @@ class Content extends StatelessWidget {
   }
 }
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class CustomMonthTextField extends StatelessWidget {
+  const CustomMonthTextField({
     super.key,
     required this.title,
     required this.text,
+    required this.controller,
     this.color = const Color(0xFF2DBD3A),
   });
 
   final String title;
   final String text;
+  final TextEditingController controller;
   final Color? color;
 
   @override
@@ -69,6 +70,54 @@ class CustomTextField extends StatelessWidget {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(8),
                   FilteringTextInputFormatter.allow(
+                    RegExp(r'[0-12]'),
+                  ),
+                ],
+              ),
+            ),
+            const Text('月'),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    super.key,
+    required this.title,
+    required this.text,
+    required this.hController,
+    required this.mController,
+    this.color = const Color(0xFF2DBD3A),
+  });
+
+  final String title;
+  final String text;
+  final TextEditingController hController;
+  final TextEditingController mController;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          title,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 100,
+              child: TextField(
+                controller: hController,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(8),
+                  FilteringTextInputFormatter.allow(
                     RegExp(r'[0-9]'),
                   ),
                 ],
@@ -78,6 +127,7 @@ class CustomTextField extends StatelessWidget {
             SizedBox(
               width: 100,
               child: TextField(
+                controller: mController,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.phone,
                 inputFormatters: [

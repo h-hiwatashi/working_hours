@@ -4,8 +4,12 @@ import 'package:working_hours/state/user_setting/user_setting_state.dart';
 class UserSettingNotifier extends StateNotifier<UserSettingSate> {
   UserSettingNotifier() : super(const UserSettingSate());
 
-  void changeSetting(
-      int month, int dailyAverage, int lowerLimit, int upperLimit) {
+  void changeSetting({
+    required int month,
+    required int dailyAverage,
+    required int lowerLimit,
+    required int upperLimit,
+  }) {
     state = state.copyWith(
       month: month,
       dailyAverage: dailyAverage,
