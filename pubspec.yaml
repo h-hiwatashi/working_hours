@@ -1,7 +1,7 @@
 name: working_hours
-description: "A new Flutter project."
+description: "Calculate working hour."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: '>=3.2.2 <4.0.0'

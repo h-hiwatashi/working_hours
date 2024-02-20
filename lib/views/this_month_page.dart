@@ -6,33 +6,31 @@ import 'package:working_hours/state/holidays/holidays_notifier.dart';
 import 'package:working_hours/state/passed_time/passed_time_notifier.dart';
 import 'package:working_hours/state/user_setting/user_setting_notifier.dart';
 import 'package:working_hours/component/content.dart';
+import 'package:working_hours/utils/font.dart';
 
 class ThisMonthPage extends ConsumerWidget {
-  ThisMonthPage({Key? key}) : super(key: key);
-
-  static const _unitName = '時間';
-  final _now = DateTime.now();
-  String minText = "";
-  String hourText = "";
-
+  const ThisMonthPage({Key? key}) : super(key: key);
+  final _unitName = '時間';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String minText = "";
+    final now = DateTime.now();
     final userSettingState = ref.read(userSettingProvider);
-    final passedTimeNotifier = ref.read(passedTimeProvider.notifier);
+    // final passedTimeNotifier = ref.read(passedTimeProvider.notifier);
     final asyncValue = ref.watch(workdayProvider(WorkdayArgs(
-      year: _now.year,
-      month: _now.month,
+      year: now.year,
+      month: now.month,
     )));
-    int _workday = 20;
+    int workday = 20;
     final display = asyncValue.when(
       data: (data) {
-        _workday = data.workday ?? 20;
-        Text(_workday.toString());
+        workday = data.workday ?? 20;
+        Text(workday.toString());
       },
       loading: () => const CircularProgressIndicator(),
       error: (error, _) => Text(error.toString()),
     );
-    final _workHourInThisMonth = _workday * userSettingState.dailyAverage!;
+    final workHourInThisMonth = workday * userSettingState.dailyAverage!;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -45,12 +43,15 @@ class ThisMonthPage extends ConsumerWidget {
           children: [
             display ?? Container(),
             Content(
-                title: '${_now.month}月の稼働予定時間',
-                text: '$_workHourInThisMonth $_unitName'),
+                title: '${now.month}月の稼働予定時間',
+                text: '$workHourInThisMonth $_unitName'),
             const SizedBox(height: 20),
             Column(
               children: [
-                const Text('今日までの作業時間'),
+                Text(
+                  '今日までの作業時間',
+                  style: CustomTextFont.result,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -112,26 +113,29 @@ class ThisMonthPage extends ConsumerWidget {
               },
               child: const Text('残りの作業時間を計算'),
             ),
+            const SizedBox(height: 20),
             const Text('下限まであと'),
             Text(
-              durationFromTimeOfDay(
+              _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
                 TimeOfDay(hour: userSettingState.lowerLimit!, minute: 00),
               ),
+              style: CustomTextFont.result,
             ),
             const SizedBox(height: 10),
             const Text('上限まであと'),
             Text(
-              durationFromTimeOfDay(
+              _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
                 TimeOfDay(hour: userSettingState.upperLimit!, minute: 00),
               ),
+              style: CustomTextFont.result,
             ),
             const SizedBox(height: 10),
             ..._workingDay(
               ref.watch(passedTimeProvider).workingHours,
               TimeOfDay(hour: userSettingState.lowerLimit!, minute: 00),
-              _workday,
+              workday,
               userSettingState.dailyAverage,
             )
           ],
@@ -140,7 +144,7 @@ class ThisMonthPage extends ConsumerWidget {
     );
   }
 
-  String durationFromTimeOfDay(TimeOfDay? start, TimeOfDay? end) {
+  String _durationFromTimeOfDay(TimeOfDay? start, TimeOfDay? end) {
     if (start == null || end == null) return '';
 
     final startAllMin = start.hour * 60 + start.minute;
@@ -191,8 +195,10 @@ class ThisMonthPage extends ConsumerWidget {
 
     return [
       const Text('必要稼働日数'),
-      const SizedBox(height: 5),
-      Text('あと $needDay日間$needHour時間$needMinute分'),
+      Text(
+        style: CustomTextFont.result,
+        '$needDay日間$needHour時間$needMinute分',
+      ),
     ];
   }
 }

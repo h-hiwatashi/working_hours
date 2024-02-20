@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:working_hours/utils/font.dart';
 
 class Content extends StatelessWidget {
   const Content({
@@ -16,7 +17,6 @@ class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -26,12 +26,13 @@ class Content extends StatelessWidget {
             title,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimaryContainer,
+              fontSize: 24,
             ),
           ),
-          const SizedBox(
-            height: 10,
+          Text(
+            text,
+            style: CustomTextFont.result,
           ),
-          Text(text),
         ],
       ),
     );
