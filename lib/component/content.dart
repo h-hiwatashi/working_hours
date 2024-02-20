@@ -65,7 +65,8 @@ class CustomMonthTextField extends StatelessWidget {
           children: [
             SizedBox(
               width: 100,
-              child: TextField(
+              child: TextFormField(
+                controller: controller,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.phone,
                 inputFormatters: [
@@ -112,7 +113,7 @@ class CustomTextField extends StatelessWidget {
           children: [
             SizedBox(
               width: 100,
-              child: TextField(
+              child: TextFormField(
                 controller: hController,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.phone,
@@ -127,7 +128,7 @@ class CustomTextField extends StatelessWidget {
             const Text('時間'),
             SizedBox(
               width: 100,
-              child: TextField(
+              child: TextFormField(
                 controller: mController,
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.phone,

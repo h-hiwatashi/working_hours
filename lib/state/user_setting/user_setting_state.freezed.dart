@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserSettingSate {
   int? get month => throw _privateConstructorUsedError; //今月
-  int? get dailyAverage => throw _privateConstructorUsedError; //1日の平均労働時間
-  int? get lowerLimit => throw _privateConstructorUsedError; //下限
-  int? get upperLimit => throw _privateConstructorUsedError; //上限
+  TimeOfDay? get dailyAverage => throw _privateConstructorUsedError; //1日の平均労働時間
+  TimeOfDay? get lowerLimit => throw _privateConstructorUsedError; //下限の時間
+  TimeOfDay? get upperLimit => throw _privateConstructorUsedError; //上限の時間
   int? get personalLeaveNum => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,9 +35,9 @@ abstract class $UserSettingSateCopyWith<$Res> {
   @useResult
   $Res call(
       {int? month,
-      int? dailyAverage,
-      int? lowerLimit,
-      int? upperLimit,
+      TimeOfDay? dailyAverage,
+      TimeOfDay? lowerLimit,
+      TimeOfDay? upperLimit,
       int? personalLeaveNum});
 }
 
@@ -68,15 +68,15 @@ class _$UserSettingSateCopyWithImpl<$Res, $Val extends UserSettingSate>
       dailyAverage: freezed == dailyAverage
           ? _value.dailyAverage
           : dailyAverage // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       lowerLimit: freezed == lowerLimit
           ? _value.lowerLimit
           : lowerLimit // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       upperLimit: freezed == upperLimit
           ? _value.upperLimit
           : upperLimit // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       personalLeaveNum: freezed == personalLeaveNum
           ? _value.personalLeaveNum
           : personalLeaveNum // ignore: cast_nullable_to_non_nullable
@@ -95,9 +95,9 @@ abstract class _$$UserSettingSateImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? month,
-      int? dailyAverage,
-      int? lowerLimit,
-      int? upperLimit,
+      TimeOfDay? dailyAverage,
+      TimeOfDay? lowerLimit,
+      TimeOfDay? upperLimit,
       int? personalLeaveNum});
 }
 
@@ -126,15 +126,15 @@ class __$$UserSettingSateImplCopyWithImpl<$Res>
       dailyAverage: freezed == dailyAverage
           ? _value.dailyAverage
           : dailyAverage // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       lowerLimit: freezed == lowerLimit
           ? _value.lowerLimit
           : lowerLimit // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       upperLimit: freezed == upperLimit
           ? _value.upperLimit
           : upperLimit // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TimeOfDay?,
       personalLeaveNum: freezed == personalLeaveNum
           ? _value.personalLeaveNum
           : personalLeaveNum // ignore: cast_nullable_to_non_nullable
@@ -148,9 +148,9 @@ class __$$UserSettingSateImplCopyWithImpl<$Res>
 class _$UserSettingSateImpl implements _UserSettingSate {
   const _$UserSettingSateImpl(
       {this.month = 1,
-      this.dailyAverage = 8,
-      this.lowerLimit = 140,
-      this.upperLimit = 180,
+      this.dailyAverage = const TimeOfDay(hour: 8, minute: 0),
+      this.lowerLimit = const TimeOfDay(hour: 140, minute: 0),
+      this.upperLimit = const TimeOfDay(hour: 180, minute: 0),
       this.personalLeaveNum = 0});
 
   @override
@@ -159,16 +159,16 @@ class _$UserSettingSateImpl implements _UserSettingSate {
 //今月
   @override
   @JsonKey()
-  final int? dailyAverage;
+  final TimeOfDay? dailyAverage;
 //1日の平均労働時間
   @override
   @JsonKey()
-  final int? lowerLimit;
-//下限
+  final TimeOfDay? lowerLimit;
+//下限の時間
   @override
   @JsonKey()
-  final int? upperLimit;
-//上限
+  final TimeOfDay? upperLimit;
+//上限の時間
   @override
   @JsonKey()
   final int? personalLeaveNum;
@@ -209,20 +209,20 @@ class _$UserSettingSateImpl implements _UserSettingSate {
 abstract class _UserSettingSate implements UserSettingSate {
   const factory _UserSettingSate(
       {final int? month,
-      final int? dailyAverage,
-      final int? lowerLimit,
-      final int? upperLimit,
+      final TimeOfDay? dailyAverage,
+      final TimeOfDay? lowerLimit,
+      final TimeOfDay? upperLimit,
       final int? personalLeaveNum}) = _$UserSettingSateImpl;
 
   @override
   int? get month;
   @override //今月
-  int? get dailyAverage;
+  TimeOfDay? get dailyAverage;
   @override //1日の平均労働時間
-  int? get lowerLimit;
-  @override //下限
-  int? get upperLimit;
-  @override //上限
+  TimeOfDay? get lowerLimit;
+  @override //下限の時間
+  TimeOfDay? get upperLimit;
+  @override //上限の時間
   int? get personalLeaveNum;
   @override
   @JsonKey(ignore: true)

@@ -4,6 +4,8 @@ import 'package:working_hours/state/passed_time/passed_time_state.dart';
 
 class PsssedTimeNotifier extends StateNotifier<PsssedTimeSate> {
   PsssedTimeNotifier() : super(const PsssedTimeSate());
+  final TextEditingController hourController = TextEditingController();
+  final TextEditingController minuteController = TextEditingController();
 
   void setHour(int hour) {
     state = state.copyWith(hour: hour);
