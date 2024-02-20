@@ -8,7 +8,11 @@ final _tabProvider = StateProvider((ref) => 0);
 class TopPage extends ConsumerWidget {
   TopPage({Key? key}) : super(key: key);
 
-  final _pages = [ThisMonthPage(), ThisMonthPage(), SettingPage()];
+  final _pages = [
+    const ThisMonthPage(),
+    // const ThisMonthPage(),
+    SettingPage(),
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +22,7 @@ class TopPage extends ConsumerWidget {
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.access_time_outlined), label: 'Total'),
-          BottomNavigationBarItem(icon: Icon(Icons.av_timer), label: 'Average'),
+          // BottomNavigationBarItem(icon: Icon(Icons.av_timer), label: 'Average'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: 'Settings'),
         ],
