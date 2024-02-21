@@ -123,7 +123,6 @@ class ThisMonthPage extends ConsumerWidget {
             Text(
               _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
-                // TimeOfDay(hour: userSettingState.lowerLimit!, minute: 00),
                 userSettingState.lowerLimit!,
               ),
               style: CustomTextFont.result,
@@ -133,7 +132,6 @@ class ThisMonthPage extends ConsumerWidget {
             Text(
               _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
-                // TimeOfDay(hour: userSettingState.upperLimit!, minute: 00),
                 userSettingState.upperLimit!,
               ),
               style: CustomTextFont.result,
@@ -141,7 +139,6 @@ class ThisMonthPage extends ConsumerWidget {
             const SizedBox(height: 10),
             ..._workingDay(
               ref.watch(passedTimeProvider).workingHours,
-              // TimeOfDay(hour: userSettingState.lowerLimit!, minute: 00),
               userSettingState.lowerLimit!,
               workday,
               userSettingState.dailyAverage,
