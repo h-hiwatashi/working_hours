@@ -14,7 +14,7 @@ class ThisMonthPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     String minText = "";
     final now = DateTime.now();
-    final userSettingState = ref.read(userSettingProvider);
+    final userSettingState = ref.watch(userSettingProvider);
     final passedTimeNotifier = ref.read(passedTimeProvider.notifier);
     final asyncValue = ref.watch(workdayProvider(WorkdayArgs(
       year: now.year,
