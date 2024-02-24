@@ -9,4 +9,9 @@ class CustomTextFont {
     fontSize: 20,
     fontWeight: FontWeight.w400,
   );
+
+  static TextStyle content = const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
 }

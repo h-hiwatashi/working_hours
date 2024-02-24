@@ -124,9 +124,13 @@ class CustomTextField extends StatelessWidget {
                     RegExp(r'[0-9]'),
                   ),
                 ],
+                style: CustomTextFont.content,
               ),
             ),
-            const Text('時間'),
+            Text(
+              '時間',
+              style: CustomTextFont.content,
+            ),
             SizedBox(
               width: 100,
               child: TextFormField(
@@ -139,9 +143,13 @@ class CustomTextField extends StatelessWidget {
                     RegExp(r'[0-9]'),
                   ),
                 ],
+                style: CustomTextFont.content,
               ),
             ),
-            const Text('分'),
+            Text(
+              '分',
+              style: CustomTextFont.content,
+            ),
           ],
         ),
       ],
