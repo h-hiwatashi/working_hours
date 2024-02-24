@@ -20,7 +20,8 @@ class PsssedTimeNotifier extends StateNotifier<PsssedTimeSate> {
   }
 }
 
+//TODO: autoDisposeを付けるか検討が必要
 final passedTimeProvider =
-    StateNotifierProvider.autoDispose<PsssedTimeNotifier, PsssedTimeSate>(
+    StateNotifierProvider<PsssedTimeNotifier, PsssedTimeSate>(
   (ref) => PsssedTimeNotifier(),
 );
