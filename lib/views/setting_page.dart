@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:working_hours/component/content.dart';
 import 'package:working_hours/state/user_setting/user_setting_notifier.dart';
+import 'package:working_hours/utils/font.dart';
 
 class SettingPage extends ConsumerWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -32,17 +33,17 @@ class SettingPage extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           CustomTextField(
-            title: '契約の上限時間',
-            text: _unitName,
-            hController: userSettingNotifier.upperLimitHController,
-            mController: userSettingNotifier.upperLimitMController,
-          ),
-          const SizedBox(height: 20),
-          CustomTextField(
             title: '契約の最低時間',
             text: _unitName,
             hController: userSettingNotifier.lowerLimitHController,
             mController: userSettingNotifier.lowerLimitMController,
+          ),
+          const SizedBox(height: 20),
+          CustomTextField(
+            title: '契約の上限時間',
+            text: _unitName,
+            hController: userSettingNotifier.upperLimitHController,
+            mController: userSettingNotifier.upperLimitMController,
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -67,7 +68,10 @@ class SettingPage extends ConsumerWidget {
                     ),
                   );
             },
-            child: const Text('設定を保存'),
+            child: Text(
+              '設定を保存',
+              style: CustomTextFont.title,
+            ),
           ),
         ],
       ),

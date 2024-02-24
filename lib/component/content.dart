@@ -107,6 +107,7 @@ class CustomTextField extends StatelessWidget {
       children: [
         Text(
           title,
+          style: CustomTextFont.title,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

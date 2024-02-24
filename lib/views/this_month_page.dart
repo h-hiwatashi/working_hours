@@ -45,15 +45,16 @@ class ThisMonthPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             display ?? Container(),
-            Content(
-                title: '${now.month}月の稼働予定時間',
-                text: '$workHourInThisMonth 時間 $workMinInThisMonth 分'),
-            const SizedBox(height: 20),
+            //TODO: 不要かもしれない
+            // Content(
+            //     title: '${now.month}月の稼働予定時間',
+            //     text: '$workHourInThisMonth 時間 $workMinInThisMonth 分'),
+            // const SizedBox(height: 20),
             Column(
               children: [
                 Text(
                   '今日までの作業時間',
-                  style: CustomTextFont.result,
+                  style: CustomTextFont.title,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -116,10 +117,16 @@ class ThisMonthPage extends ConsumerWidget {
                     .read(passedTimeProvider.notifier)
                     .setWorkingHours(tpassedTime);
               },
-              child: const Text('残りの作業時間を計算'),
+              child: Text(
+                '残りの作業時間を計算',
+                style: CustomTextFont.title,
+              ),
             ),
             const SizedBox(height: 20),
-            const Text('下限まであと'),
+            Text(
+              '下限まであと',
+              style: CustomTextFont.title,
+            ),
             Text(
               _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
@@ -128,7 +135,10 @@ class ThisMonthPage extends ConsumerWidget {
               style: CustomTextFont.result,
             ),
             const SizedBox(height: 10),
-            const Text('上限まであと'),
+            Text(
+              '上限まであと',
+              style: CustomTextFont.title,
+            ),
             Text(
               _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
@@ -170,14 +180,20 @@ class ThisMonthPage extends ConsumerWidget {
   ) {
     if (passedTime == null || lowerLimit == null || workday == null) {
       return [
-        const Text('必要稼働日数'),
+        Text(
+          '必要稼働日数',
+          style: CustomTextFont.title,
+        ),
         const SizedBox(height: 5),
         const Text(''),
       ];
     }
     if (workday == 0) {
       return [
-        const Text('下限はクリアしています。'),
+        Text(
+          '下限はクリアしています。',
+          style: CustomTextFont.result,
+        ),
       ];
     }
     if (averageTime == const TimeOfDay(hour: 0, minute: 0) ||
@@ -191,7 +207,10 @@ class ThisMonthPage extends ConsumerWidget {
     final diffMin = lowerLimitAllMin - passedTimeAllMin;
     if (diffMin <= 0) {
       return [
-        const Text('下限はクリアしています。'),
+        Text(
+          '下限はクリアしています。',
+          style: CustomTextFont.result,
+        ),
       ];
     }
     final averageAllMin = averageTime.hour * 60 + averageTime.minute;
@@ -203,7 +222,10 @@ class ThisMonthPage extends ConsumerWidget {
     final needMinute = needTime % 60;
 
     return [
-      const Text('最低必要稼働日数'),
+      Text(
+        '最低必要稼働日数',
+        style: CustomTextFont.title,
+      ),
       Text(
         style: CustomTextFont.result,
         '$needDay日間$needHour時間$needMinute分',
