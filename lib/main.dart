@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: lightColorScheme,
         fontFamily: 'Noto_Sans_JP',
       ),
+      debugShowCheckedModeBanner: false,
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       home: const MyHomePage(title: 'Working Hour'),
     );
