@@ -1,7 +1,7 @@
 name: working_hours
-description: "A new Flutter project."
+description: "Calculate working hour."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.0+5
 
 environment:
   sdk: '>=3.2.2 <4.0.0'
@@ -15,6 +15,8 @@ dependencies:
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   http: ^1.2.0
+  shared_preferences: ^2.2.2
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -22,5 +24,52 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+
 flutter:
   uses-material-design: true
+  fonts:
+  - family: Murecho
+    fonts:
+      - asset: assets/fonts/Murecho/static/Murecho-Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Murecho/static/Murecho-ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Murecho/static/Murecho-Light.ttf
+        weight: 300
+      - asset: assets/fonts/Murecho/static/Murecho-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Murecho/static/Murecho-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Murecho/static/Murecho-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Murecho/static/Murecho-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Murecho/static/Murecho-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/Murecho/static/Murecho-Black.ttf
+        weight: 900
+  - family: Noto_Sans_JP
+    fonts:
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Light.ttf
+        weight: 300
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Black.ttf
+        weight: 900
+
+flutter_icons:    
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"

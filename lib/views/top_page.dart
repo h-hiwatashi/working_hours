@@ -9,9 +9,9 @@ class TopPage extends ConsumerWidget {
   TopPage({Key? key}) : super(key: key);
 
   final _pages = [
-    ThisMonthPage(),
-    ThisMonthPage(),
-    const SettingPage('Settings')
+    const ThisMonthPage(),
+    // const ThisMonthPage(),
+    SettingPage(),
   ];
 
   @override
@@ -22,7 +22,7 @@ class TopPage extends ConsumerWidget {
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.access_time_outlined), label: 'Total'),
-          BottomNavigationBarItem(icon: Icon(Icons.av_timer), label: 'Average'),
+          // BottomNavigationBarItem(icon: Icon(Icons.av_timer), label: 'Average'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: 'Settings'),
         ],

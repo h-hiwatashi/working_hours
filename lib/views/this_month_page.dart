@@ -5,36 +5,35 @@ import 'package:working_hours/model/arguments/arguments_model.dart';
 import 'package:working_hours/state/holidays/holidays_notifier.dart';
 import 'package:working_hours/state/passed_time/passed_time_notifier.dart';
 import 'package:working_hours/state/user_setting/user_setting_notifier.dart';
-import 'package:working_hours/utils/compornent.dart';
+import 'package:working_hours/component/content.dart';
+import 'package:working_hours/utils/font.dart';
 
 class ThisMonthPage extends ConsumerWidget {
-  ThisMonthPage({Key? key}) : super(key: key);
-
-  static const _unitName = '時間';
-  final _now = DateTime.now();
-  String minText = "";
-  String hourText = "";
-
+  const ThisMonthPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userSettingState = ref.read(userSettingProvider);
+    String minText = "";
+    final now = DateTime.now();
+    final userSettingState = ref.watch(userSettingProvider);
     final passedTimeNotifier = ref.read(passedTimeProvider.notifier);
-    // final passedTimeState = ref.read(passedTimeProvider);
     final asyncValue = ref.watch(workdayProvider(WorkdayArgs(
-      year: _now.year,
-      month: _now.month,
+      year: now.year,
+      month: now.month,
     )));
-    int _workday = 20;
+    int workday = 20;
     final display = asyncValue.when(
       data: (data) {
-        _workday = data.workday ?? 20;
-        Text(_workday.toString());
+        workday = data.workday ?? 20;
+        Text(workday.toString());
       },
       loading: () => const CircularProgressIndicator(),
       error: (error, _) => Text(error.toString()),
     );
-    final workHours = _workday * userSettingState.dailyAverage!;
-    String remainingWorkingHours = workHours.toString();
+    final workAllMinInThisMonth =
+        workday * userSettingState.dailyAverage!.hour * 60 +
+            userSettingState.dailyAverage!.minute;
+    final workHourInThisMonth = workAllMinInThisMonth ~/ 60;
+    final workMinInThisMonth = workAllMinInThisMonth % 60;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -46,22 +45,25 @@ class ThisMonthPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             display ?? Container(),
-            Content(
-                title: '${_now.month}月の稼働予定時間', text: '$workHours $_unitName'),
-            const SizedBox(height: 20),
+            //TODO: 不要かもしれない
+            // Content(
+            //     title: '${now.month}月の稼働予定時間',
+            //     text: '$workHourInThisMonth 時間 $workMinInThisMonth 分'),
+            // const SizedBox(height: 20),
             Column(
               children: [
-                const Text('今日までの作業時間'),
+                Text(
+                  '今日までの作業時間',
+                  style: CustomTextFont.title,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: 100,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: passedTimeNotifier.hourController,
                         onChanged: (value) {
-                          // ref
-                          //     .read(passedTimeProvider.notifier)
-                          //     .setHour(int.parse(value ?? '0') ?? 0);
                           final v = value == '' ? '0' : value;
                           ref
                               .read(passedTimeProvider.notifier)
@@ -75,16 +77,18 @@ class ThisMonthPage extends ConsumerWidget {
                             RegExp(r'[0-9]'),
                           ),
                         ],
+                        style: CustomTextFont.content,
                       ),
                     ),
-                    const Text('時間'),
+                    Text(
+                      '時間',
+                      style: CustomTextFont.content,
+                    ),
                     SizedBox(
                       width: 100,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: passedTimeNotifier.minuteController,
                         onChanged: (value) {
-                          // ref
-                          //     .read(passedTimeProvider.notifier)
-                          //     .setMin(int.parse(value));
                           minText = value;
                           final v = value == '' ? '0' : value;
                           ref
@@ -99,9 +103,13 @@ class ThisMonthPage extends ConsumerWidget {
                             RegExp(r'[0-9]'),
                           ),
                         ],
+                        style: CustomTextFont.content,
                       ),
                     ),
-                    const Text('分'),
+                    Text(
+                      '分',
+                      style: CustomTextFont.content,
+                    ),
                   ],
                 ),
               ],
@@ -109,41 +117,57 @@ class ThisMonthPage extends ConsumerWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // final passedMin = minText == '' ? 0 : int.parse(minText) / 60;
-                // final hourNum = hourText == '' ? 0 : int.parse(hourText);
-                final min = ref.read(passedTimeProvider).min;
-                final passedMin = min == 0 ? 0 : min! / 60;
-                final hourNum = ref.read(passedTimeProvider).hour ?? 0;
-
                 final tpassedTime = TimeOfDay(
                   hour: ref.read(passedTimeProvider).hour!,
                   minute: ref.read(passedTimeProvider).min!,
                 );
-
-                // double numHours = workHours - hourNum - passedMin;
-                // remainingWorkingHours = numHours.toString();
                 ref
                     .read(passedTimeProvider.notifier)
                     .setWorkingHours(tpassedTime);
               },
-              child: const Text('残りの作業時間を計算'),
+              child: Text(
+                '残りの作業時間を計算',
+                style: CustomTextFont.title,
+              ),
             ),
-            const Text('下限まであと'),
-            Text(durationFromTimeOfDay(
+            const SizedBox(height: 20),
+            Text(
+              '下限まであと',
+              style: CustomTextFont.title,
+            ),
+            Text(
+              _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
-                TimeOfDay(hour: userSettingState.lowerLimit!, minute: 00))),
+                userSettingState.lowerLimit!,
+              ),
+              style: CustomTextFont.result,
+            ),
             const SizedBox(height: 10),
-            const Text('上限まであと'),
-            Text(durationFromTimeOfDay(
+            Text(
+              '上限まであと',
+              style: CustomTextFont.title,
+            ),
+            Text(
+              _durationFromTimeOfDay(
                 ref.watch(passedTimeProvider).workingHours,
-                TimeOfDay(hour: userSettingState.upperLimit!, minute: 00)))
+                userSettingState.upperLimit!,
+              ),
+              style: CustomTextFont.result,
+            ),
+            const SizedBox(height: 10),
+            ..._workingDay(
+              ref.watch(passedTimeProvider).workingHours,
+              userSettingState.lowerLimit!,
+              workday,
+              userSettingState.dailyAverage,
+            )
           ],
         ),
       ),
     );
   }
 
-  String durationFromTimeOfDay(TimeOfDay? start, TimeOfDay? end) {
+  String _durationFromTimeOfDay(TimeOfDay? start, TimeOfDay? end) {
     if (start == null || end == null) return '';
 
     final startAllMin = start.hour * 60 + start.minute;
@@ -154,5 +178,66 @@ class ThisMonthPage extends ConsumerWidget {
     final m = diffMin % 60;
 
     return '$h時間$m分';
+  }
+
+  List<Widget> _workingDay(
+    TimeOfDay? passedTime,
+    TimeOfDay? lowerLimit,
+    int? workday,
+    TimeOfDay? averageTime,
+  ) {
+    if (passedTime == null || lowerLimit == null || workday == null) {
+      return [
+        Text(
+          '必要稼働日数',
+          style: CustomTextFont.title,
+        ),
+        const SizedBox(height: 5),
+        const Text(''),
+      ];
+    }
+    if (workday == 0) {
+      return [
+        Text(
+          '下限はクリアしています。',
+          style: CustomTextFont.result,
+        ),
+      ];
+    }
+    if (averageTime == const TimeOfDay(hour: 0, minute: 0) ||
+        averageTime == null) {
+      return [
+        const Text('平均稼働時間が正しくありません。'),
+      ];
+    }
+    final passedTimeAllMin = passedTime.hour * 60 + passedTime.minute;
+    final lowerLimitAllMin = lowerLimit.hour * 60 + lowerLimit.minute;
+    final diffMin = lowerLimitAllMin - passedTimeAllMin;
+    if (diffMin <= 0) {
+      return [
+        Text(
+          '下限はクリアしています。',
+          style: CustomTextFont.result,
+        ),
+      ];
+    }
+    final averageAllMin = averageTime.hour * 60 + averageTime.minute;
+    // final needDay = diffMin ~/ (averageHour * 60);
+    // final needTime = diffMin % (averageHour * 60);
+    final needDay = diffMin ~/ averageAllMin;
+    final needTime = diffMin % averageAllMin;
+    final needHour = needTime ~/ 60;
+    final needMinute = needTime % 60;
+
+    return [
+      Text(
+        '最低必要稼働日数',
+        style: CustomTextFont.title,
+      ),
+      Text(
+        style: CustomTextFont.result,
+        '$needDay日間$needHour時間$needMinute分',
+      ),
+    ];
   }
 }
