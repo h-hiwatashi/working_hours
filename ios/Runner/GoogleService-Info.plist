@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.workingHours</string>
+	<string>com.workingHour.develop</string>
 	<key>PROJECT_ID</key>
 	<string>working-hours-8dad9</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:843267668371:ios:f9edbc367429d5455c1066</string>
+	<string>1:843267668371:ios:de52de60c547b4a45c1066</string>
 </dict>
 </plist>
