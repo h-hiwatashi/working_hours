@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:working_hours/views/home_page.dart';
 import 'package:working_hours/views/setting_page.dart';
 import 'package:working_hours/views/this_month_page.dart';
 
@@ -9,6 +10,7 @@ class TopPage extends ConsumerWidget {
   TopPage({Key? key}) : super(key: key);
 
   final _pages = [
+    const HomePagePage(),
     const ThisMonthPage(),
     // const ThisMonthPage(),
     SettingPage(),
@@ -21,10 +23,18 @@ class TopPage extends ConsumerWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.access_time_outlined), label: 'Total'),
+            icon: Icon(Icons.access_time_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time_outlined),
+            label: 'Detail',
+          ),
           // BottomNavigationBarItem(icon: Icon(Icons.av_timer), label: 'Average'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
         ],
         currentIndex: ref.watch(_tabProvider),
         onTap: (int index) {
